@@ -1,1 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>David TV - Social Media Services</title>
 
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0D0A1A;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D0A1A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #A855F7;
+            border-radius: 10px;
+        }
+
+        /* ── Container ── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ── Buttons ── */
+        .btn-primary {
+            background: #A855F7;
+            color: #fff;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        .btn-primary:hover {
+            background: #C084FC;
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.7);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            padding: 14px 40px;
+            border: 2px solid #A855F7;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-secondary:hover {
+            background: #A855F7;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+        }
+
+        /* ── Header / Nav ── */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #4C1D95;
+            position: sticky;
+            top: 0;
+            background: rgba(13, 10, 26, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 999;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #A855F7, #D946EF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+        .logo span {
+            -webkit-text-fill-color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            font-weight: 600;
+        }
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #A855F7;
+        }
+        .nav-cta {
+            background: #A855F7;
+            padding: 10px 24px;
+            border-radius: 50px;
+            color: #fff !important;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .nav-cta:hover {
+            background: #C084FC !important;
+            transform: scale(1.05);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(168, 85, 247, 0.15);
+            color: #A855F7;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #A855F7, #D946EF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            max-width: 640px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-image {
+            margin-top: 48px;
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.25);
+            border: 1px solid #4C1D95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ── Sections ── */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid #1f1a3a;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-title .highlight {
+            background: linear-gradient(135deg, #A855F7, #D946EF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-sub {
+            text-align: center;
+            color: #d1d5db;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        /* ── Services Grid ── */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #2a1f4a;
+            border-radius: 16px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: #A855F7;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
+        }
+        .service-card i {
+            font-size: 2.4rem;
+            color: #A855F7;
+            margin-bottom: 12px;
+        }
+        .service-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .service-card p {
+            font-size: 0.9rem;
+            color: #b0b0c0;
+            margin-top: 6px;
+        }
+
+        /* ── Pricing Tables ── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #2a1f4a;
+            border-radius: 20px;
+            padding: 32px 20px;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .pricing-card:hover {
+            border-color: #A855F7;
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.12);
+            transform: translateY(-4px);
+        }
+        .pricing-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #A855F7;
+        }
+        .pricing-card .price {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 12px 0 8px;
+        }
+        .pricing-card .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #b0b0c0;
+        }
+        .pricing-card ul {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+        }
+        .pricing-card ul li {
+            padding: 6px 0;
+            color: #d1d5db;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #1a142b;
+        }
+        .pricing-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        /* ── Platforms ── */
+        .platform-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 40px;
+            margin-top: 20px;
+        }
+        .platform-grid span {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .platform-grid span i {
+            color: #A855F7;
+            font-size: 1.5rem;
+        }
+
+        /* ── Why Us ── */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .why-item {
+            text-align: center;
+            padding: 24px 12px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #1f1a3a;
+            transition: 0.3s;
+        }
+        .why-item:hover {
+            border-color: #A855F7;
+        }
+        .why-item i {
+            font-size: 2.2rem;
+            color: #A855F7;
+            margin-bottom: 10px;
+        }
+        .why-item h4 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        /* ── CTA Section ── */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(13, 10, 26, 1));
+            border-radius: 32px;
+            padding: 60px 40px;
+            border: 1px solid #4C1D95;
+            margin: 40px 0;
+        }
+        .cta-section h2 {
+            font-size: 2.6rem;
+            font-weight: 900;
+        }
+        .cta-section p {
+            color: #d1d5db;
+            margin: 16px 0 32px;
+            font-size: 1.2rem;
+        }
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding: 40px 0 24px;
+            text-align: center;
+            border-top: 1px solid #1f1a3a;
+            color: #8888a0;
+            font-size: 0.9rem;
+        }
+        footer .socials {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+        footer .socials a {
+            color: #8888a0;
+            font-size: 1.4rem;
+            transition: 0.3s;
+        }
+        footer .socials a:hover {
+            color: #A855F7;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 16px;
+                padding: 20px 0;
+                border-top: 1px solid #2a1f4a;
+                margin-top: 16px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .cta-section {
+                padding: 40px 20px;
+            }
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-buttons a {
+                width: 100%;
+                text-align: center;
+            }
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ HEADER ═══ -->
+    <header>
+        <div class="container nav">
+            <div class="logo">David<span>TV</span></div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#platforms">Platforms</a></li>
+                <li><a href="#why">Why Us</a></li>
+                <li><a href="#contact" class="nav-cta">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-bolt" style="margin-right: 8px;"></i> Fast · Real · Active · Affordable
+            </div>
+            <h1>
+                Social Media <br />
+                <span class="highlight">Video Boosting</span>
+            </h1>
+            <p>
+                I provide all Social Media services — reliable, tested, and trusted.
+                Real growth. Real results.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary"><i class="fas fa-rocket"></i> Get Started</a>
+                <a href="#services" class="btn-secondary">Explore Services</a>
+            </div>
+            <!-- Image -->
+            <img src="IMG-20260907-WA0099_4985329475580675794.webp" alt="David TV Social Media Services" class="hero-image" />
+        </div>
+    </section>
+
+    <!-- ═══ SERVICES ═══ -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">What I <span class="highlight">Offer</span></h2>
+            <p class="section-sub">Everything you need to grow your brand online — fast, safe, and affordable.</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>WhatsApp Bots</h3>
+                    <p>Automate your business messaging</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Social Media Boosting</h3>
+                    <p>Real engagement, real growth</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>Social Media Accounts</h3>
+                    <p>Setup & management</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-unlock"></i>
+                    <h3>Account Unban Assistance</h3>
+                    <p>Get your accounts back</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Website Services</h3>
+                    <p>Professional web development</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>USA & International Numbers</h3>
+                    <p>Virtual numbers for verification</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Social Media Setup & Management</h3>
+                    <p>Full account management</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-comment-dots"></i>
+                    <h3>WhatsApp Business Setup</h3>
+                    <p>Set up your business profile</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Digital Marketing</h3>
+                    <p>Reach your target audience</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Romantic & Birthday Message Writing</h3>
+                    <p>Special messages for special people</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRICING ═══ -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Video <span class="highlight">Boosting</span> Packages</h2>
+            <p class="section-sub">Choose the package that fits your goals — all prices are in ₱ (Philippine Peso).</p>
+
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">₱300 <span>/ 100 shares</span></div>
+                    <ul>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> 100 – 1,000 shares</li>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> Fast delivery</li>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> Real engagement</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary" style="width:100%; padding:12px;">Order Now</a>
+                </div>
+
+                <!-- Pro -->
+                <div class="pricing-card" style="border-color:#A855F7; box-shadow:0 0 30px rgba(168,85,247,0.15);">
+                    <h3>Pro</h3>
+                    <div class="price">₱6,000 <span>/ 2,000 shares</span></div>
+                    <ul>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> 2,000 – 5,000 shares</li>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> Priority delivery</li>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> 24/7 support</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary" style="width:100%; padding:12px;">Order Now</a>
+                </div>
+
+                <!-- Premium -->
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <div class="price">₱30,000 <span>/ 10,000 shares</span></div>
+                    <ul>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> 10,000 – 20,000 shares</li>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> Instant start</li>
+                        <li><i class="fas fa-check" style="color:#A855F7;"></i> 100% safe & secure</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary" style="width:100%; padding:12px;">Order Now</a>
+                </div>
+            </div>
+
+            <!-- Full pricing note -->
+            <p style="text-align:center; color:#8888a0; margin-top:32px; font-size:0.9rem;">
+                <i class="fas fa-info-circle" style="color:#A855F7;"></i> Prices are subject to change without prior notice.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ PLATFORMS ═══ -->
+    <section id="platforms">
+        <div class="container">
+            <h2 class="section-title">Platforms We <span class="highlight">Boost</span></h2>
+            <p class="section-sub">We support all major social media platforms.</p>
+
+            <div class="platform-grid">
+                <span><i class="fab fa-tiktok"></i> TikTok</span>
+                <span><i class="fab fa-instagram"></i> Instagram</span>
+                <span><i class="fab fa-facebook"></i> Facebook</span>
+                <span><i class="fab fa-youtube"></i> YouTube</span>
+                <span><i class="fab fa-twitter"></i> Twitter (X)</span>
+                <span><i class="fab fa-telegram"></i> Telegram</span>
+                <span><i class="fab fa-snapchat"></i> Snapchat</span>
+                <span><i class="fab fa-linkedin"></i> LinkedIn</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ WHY US ═══ -->
+    <section id="why">
+        <div class="container">
+            <h2 class="section-title">Why <span class="highlight">Choose Us?</span></h2>
+            <p class="section-sub">We deliver quality, speed, and trust — every time.</p>
+
+            <div class="why-grid">
+                <div class="why-item">
+                    <i class="fas fa-star"></i>
+                    <h4>High Quality Services</h4>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-lock"></i>
+                    <h4>No Password Needed</h4>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Fast Delivery</h4>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-tag"></i>
+                    <h4>Affordable Prices</h4>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>100% Safe & Secure</h4>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-headset"></i>
+                    <h4>24/7 Customer Support</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CONTACT / CTA ═══ -->
+    <section id="contact">
+        <div class="container">
+            <div class="cta-section">
+                <h2>Ready to <span class="highlight">Grow?</span></h2>
+                <p>Reach out for such services if needed — Let's make money together! 🛍️🤝</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/2349071634600" target="_blank" class="btn-primary">
+                        <i class="fab fa-whatsapp"></i> Main WhatsApp
+                    </a>
+                    <a href="https://wa.me/2348034118378" target="_blank" class="btn-secondary">
+                        <i class="fab fa-whatsapp"></i> Backup WhatsApp
+                    </a>
+                    <a href="https://t.me/davidqq" target="_blank" class="btn-secondary">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                </div>
+                <p style="margin-top:24px; color:#8888a0; font-size:0.9rem;">
+                    <i class="fas fa-clock"></i> Instant start · 24/7 support · Real & active engagement
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+        <div class="container">
+            <div class="socials">
+                <a href="https://wa.me/2349071634600" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/davidqq" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; 2026 David TV. All rights reserved. <br> Fast · Real · Active · Affordable</p>
+        </div>
+    </footer>
+
+    <!-- ═══ HAMBURGER TOGGLE ═══ -->
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        // Close menu on link click (mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+    </script>
+
+</body>
+  </html>
